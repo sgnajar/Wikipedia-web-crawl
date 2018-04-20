@@ -11,7 +11,7 @@ import urllib
 import bs4
 
 startURL = "https://en.wikipedia.org/wiki/Special:Random"
-targetURL = "https://en.wikipedia.org/wiki/Philasophy"
+targetURL = "https://en.wikipedia.org/wiki/Philosophy"
 
 def getFirstLink(url):
     response = requests.get(url)
@@ -31,14 +31,14 @@ def getFirstLink(url):
     firstLink = urllib.parse.urljoin('https://en.wikipedia.org/', articleLink)
     return firstLink
 
-#countinueCrawl function
+#continueCrawl function
 #continueCrawl should return True or False following these rules:
 #if the most recent article in the searchHistory is the target article the search should stop and the function should return False
 #If the list is more than 25 urls long, the function should return False
 #If the list has a cycle in it, the function should return False
 #otherwise the search should continue and the function should return True.
 
-def countinueCrawl(searchHistory, targetURL, maxSteps=25):
+def continueCrawl(searchHistory, targetURL, maxSteps=25):
     if searchHistory[-1] == targetURL:
         print("target article found")
         return False
@@ -53,7 +53,7 @@ def countinueCrawl(searchHistory, targetURL, maxSteps=25):
 
 articleChain = [startURL]
 
-while countinueCrawl(articleChain, targetURL):
+while continueCrawl(articleChain, targetURL):
     #print(articleChain[-1])
     firstLink = getFirstLink(articleChain[-1])
     if not firstLink:
